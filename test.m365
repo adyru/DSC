@@ -1,0 +1,281 @@
+# Generated with Microsoft365DSC version 1.24.1002.1
+# For additional information on how to use Microsoft365DSC, please visit https://aka.ms/M365DSC
+param (
+)
+
+Configuration new
+{
+    param (
+    )
+
+    $OrganizationName = $ConfigurationData.NonNodeData.OrganizationName
+
+    Import-DscResource -ModuleName 'Microsoft365DSC' -ModuleVersion '1.24.1002.1'
+
+    Node localhost
+    {
+        EXOTransportRule "EXOTransportRule-redirect external to Mimecast"
+        {
+            ApplicationId                             = $ConfigurationData.NonNodeData.ApplicationId;
+            ApplyOME                                  = $False;
+            AttachmentHasExecutableContent            = $False;
+            AttachmentIsPasswordProtected             = $False;
+            AttachmentIsUnsupported                   = $False;
+            AttachmentProcessingLimitExceeded         = $False;
+            CertificateThumbprint                     = $ConfigurationData.NonNodeData.CertificateThumbprint;
+            DeleteMessage                             = $False;
+            Enabled                                   = $True;
+            Ensure                                    = "Present";
+            ExceptIfAttachmentHasExecutableContent    = $False;
+            ExceptIfAttachmentIsPasswordProtected     = $False;
+            ExceptIfAttachmentIsUnsupported           = $False;
+            ExceptIfAttachmentProcessingLimitExceeded = $False;
+            ExceptIfFromAddressMatchesPatterns        = @("babcockinternationalpre1.onmicrosoft.com");
+            ExceptIfHasNoClassification               = $False;
+            HasNoClassification                       = $False;
+            Mode                                      = "Enforce";
+            ModerateMessageByManager                  = $False;
+            Name                                      = "redirect external to Mimecast";
+            Priority                                  = 0;
+            Quarantine                                = $False;
+            RecipientAddressType                      = "Resolved";
+            RemoveOME                                 = $False;
+            RemoveOMEv2                               = $False;
+            RemoveRMSAttachmentEncryption             = $False;
+            RouteMessageOutboundConnector             = "EXO to Mimecast";
+            RouteMessageOutboundRequireTls            = $False;
+            RuleErrorAction                           = "Ignore";
+            RuleSubType                               = "None";
+            SenderAddressLocation                     = "Header";
+            SentToScope                               = "NotInOrganization";
+            StopRuleProcessing                        = $False;
+            TenantId                                  = $OrganizationName;
+        }
+        EXOTransportRule "EXOTransportRule-Test signature"
+        {
+            ApplicationId                             = $ConfigurationData.NonNodeData.ApplicationId;
+            ApplyHtmlDisclaimerFallbackAction         = "Wrap";
+            ApplyHtmlDisclaimerLocation               = "Append";
+            ApplyHtmlDisclaimerText                   = "<!DOCTYPE HTML PUBLIC `"-//W3C//DTD HTML 4.0 Transitional//EN`"><HTML><HEAD><TITLE>Email Signature</TITLE><META content=`"text/html; charset=utf-8`" http-equiv=`"Content-Type`"></HEAD><BODY style=`"font-size: 10pt; font-family: Verdana, sans-serif;`"><table style=`"font-family:Verdana, sans-serif; background: transparent !important;`" cellpadding=`"0`" cellspacing=`"0`"><tbody><tr><td style=`"width:140px; padding:0; text-align:center; vertical-align:middle;`" valign=`"middle`" width=`"140`"><img width=`"100`" height=`"100`" border=`"0`" style=`"width:100px; height:100px; border-radius:50px; border:0;`"  src=`"https://www.mail-signatures.com/signature-generator/img/templates/photo2/photo.png`"></td><td style=`"border-bottom:2px solid; border-bottom-color:#349beb; padding:0; vertical-align:top;`" valign=`"top`"> <table style=`"font-family:Verdana, sans-serif; background: transparent !important;`" cellpadding=`"0`" cellspacing=`"0`"><tbody><tr><td style=`"font-family:Verdana, sans-serif; color:#ed5a24; padding-bottom:6px; padding-top:0; padding-left:0; padding-right:0; vertical-align:top;`" valign=`"top`"><strong><span style=`"font-family:Verdana, sans-serif; color:#349beb; font-size:14pt; font-style:italic;`">%%FirstName%% %%LastName%%</span></strong><br><span style=`"font-family:Verdana, sans-serif; color:#349beb; font-size:10pt;`">%%Title%%</span> </td> </tr> <tr><td style=`"font-family:Verdana, sans-serif; color:#444444; padding-bottom:6px; padding-top:0; padding-left:0; padding-right:0; line-height:18px; vertical-align:top;`" valign=`"top`"><span style=`"font-family:Verdana, sans-serif; color:#444444; font-size:10pt;`">email: %%Email%%<br></span> <span style=`"font-family:Verdana, sans-serif; color:#444444; font-size:10pt;`">phone: %%PhoneNumber%%<span style=`"font-family:Verdana, sans-serif; font-size:10pt;`"> | </span></span><span style=`"font-family:Verdana, sans-serif; color:#444444; font-size:10pt;`">mobile: %%MobileNumber%%</span></td></tr><tr><td style=`"font-family:Verdana, sans-serif; color:#444444;  padding-bottom:6px; padding-top:0; padding-left:0; padding-right:0; line-height:18px; vertical-align:top;`" valign=`"top`"><span style=`"font-family:Verdana, sans-serif; color:#444444; font-size:10pt;`">%%Company%%, </span><span style=`"font-family:Verdana, sans-serif; color:#444444; font-size:10pt;`">%%Street%%, %%City%%</span><span style=`"font-family:Verdana, sans-serif; color:#444444; font-size:10pt;`">%%ZipCode%%, %%State%%, %%Country%%</span></td></tr></tbody></table> </td> </tr><tr><td style=`"font-family:Verdana, sans-serif; width:140px; padding-top:6px; padding-left:0; padding-right:0; text-align:center; vertical-align:middle;`" valign=`"middle`" width=`"140`"> <span><a href=`"https://www.facebook.com/MyCompany`" target=`"_blank`" rel=`"noopener`"><img border=`"0`" width=`"16`" style=`"border:0; height:16px; width:16px`" src=`"https://www.mail-signatures.com/signature-generator/img/templates/photo2/fb.png`"></a>&nbsp;</span><span><a href=`"https://twitter.com/MyCompany404`" target=`"_blank`" rel=`"noopener`"><img border=`"0`" width=`"16`" style=`"border:0; height:16px; width:16px`" src=`"https://www.mail-signatures.com/signature-generator/img/templates/photo2/tt.png`"></a>&nbsp;</span><span><a href=`"https://www.youtube.com/user/MyCompanyChannel`" target=`"_blank`" rel=`"noopener`"><img border=`"0`" width=`"16`" style=`"border:0; height:16px; width:16px`" src=`"https://www.mail-signatures.com/signature-generator/img/templates/photo2/yt.png`"></a>&nbsp;</span><span><a href=`"https://www.linkedin.com/company/mycompany404`" target=`"_blank`" rel=`"noopener`"><img border=`"0`" width=`"16`" style=`"border:0; height:16px; width:16px`" src=`"https://www.mail-signatures.com/signature-generator/img/templates/photo2/ln.png`"></a>&nbsp;</span><span><a href=`"https://www.instagram.com/mycompany404/`" target=`"_blank`" rel=`"noopener`"><img border=`"0`" width=`"16`" style=`"border:0; height:16px; width:16px`" src=`"https://www.mail-signatures.com/signature-generator/img/templates/photo2/it.png`"></a>&nbsp;</span><span><a href=`"https://pinterest.com/mycompany404/`" target=`"_blank`" rel=`"noopener`"><img border=`"0`" width=`"16`" style=`"border:0; height:16px; width:16px`" src=`"https://www.mail-signatures.com/signature-generator/img/templates/photo2/pt.png`"></a>&nbsp;</span></td><td style=`"padding-top:6px; padding-bottom:0; padding-left:0; padding-right:0; vertical-align:middle;`" valign=`"middle`"><a href=`"http://www.my-company.com`" target=`"_blank`" rel=`"noopener`" style=`" text-decoration:none;`"><span style=`"color:#ed5a24; font-family:Verdana, sans-serif; font-size:10pt`"><span style=`"color:#349beb; font-family:Verdana, sans-serif; font-size:10pt`">www.babgroup.co.uk</span></span></a></td></tr></tbody></table></BODY></HTML>";
+            ApplyOME                                  = $False;
+            AttachmentHasExecutableContent            = $False;
+            AttachmentIsPasswordProtected             = $False;
+            AttachmentIsUnsupported                   = $False;
+            AttachmentProcessingLimitExceeded         = $False;
+            CertificateThumbprint                     = $ConfigurationData.NonNodeData.CertificateThumbprint;
+            DeleteMessage                             = $False;
+            Enabled                                   = $True;
+            Ensure                                    = "Present";
+            ExceptIfAttachmentHasExecutableContent    = $False;
+            ExceptIfAttachmentIsPasswordProtected     = $False;
+            ExceptIfAttachmentIsUnsupported           = $False;
+            ExceptIfAttachmentProcessingLimitExceeded = $False;
+            ExceptIfHasNoClassification               = $False;
+            From                                      = @("Htest.1user@NS1.babgroup.co.uk");
+            HasNoClassification                       = $False;
+            Mode                                      = "Enforce";
+            ModerateMessageByManager                  = $False;
+            Name                                      = "Test signature";
+            Priority                                  = 1;
+            Quarantine                                = $False;
+            RecipientAddressType                      = "Resolved";
+            RemoveOME                                 = $False;
+            RemoveOMEv2                               = $False;
+            RemoveRMSAttachmentEncryption             = $False;
+            RouteMessageOutboundRequireTls            = $False;
+            RuleErrorAction                           = "Ignore";
+            RuleSubType                               = "None";
+            SenderAddressLocation                     = "Header";
+            StopRuleProcessing                        = $False;
+            TenantId                                  = $OrganizationName;
+        }
+        EXOTransportRule "EXOTransportRule-Remove Encryption for External recipients"
+        {
+            ApplicationId                             = $ConfigurationData.NonNodeData.ApplicationId;
+            ApplyOME                                  = $False;
+            AttachmentHasExecutableContent            = $False;
+            AttachmentIsPasswordProtected             = $False;
+            AttachmentIsUnsupported                   = $False;
+            AttachmentProcessingLimitExceeded         = $False;
+            CertificateThumbprint                     = $ConfigurationData.NonNodeData.CertificateThumbprint;
+            DeleteMessage                             = $False;
+            Enabled                                   = $False;
+            Ensure                                    = "Present";
+            ExceptIfAttachmentHasExecutableContent    = $False;
+            ExceptIfAttachmentIsPasswordProtected     = $False;
+            ExceptIfAttachmentIsUnsupported           = $False;
+            ExceptIfAttachmentProcessingLimitExceeded = $False;
+            ExceptIfHasNoClassification               = $False;
+            From                                      = @("Htest.1user@NS1.babgroup.co.uk","htest.3user@NS1.babgroup.co.uk","htest.4user@NS1.babgroup.co.uk","htest.2user@NS1.babgroup.co.uk","hbtest.2user@NS1.babgroup.co.uk","HBtest.1user@NS1.babgroup.co.uk","hbtest.3user@NS1.babgroup.co.uk","hbtest.4user@NS1.babgroup.co.uk");
+            FromScope                                 = "InOrganization";
+            HasNoClassification                       = $False;
+            Mode                                      = "Enforce";
+            ModerateMessageByManager                  = $False;
+            Name                                      = "Remove Encryption for External recipients";
+            Priority                                  = 2;
+            Quarantine                                = $False;
+            RecipientAddressType                      = "Resolved";
+            RemoveOME                                 = $False;
+            RemoveOMEv2                               = $True;
+            RemoveRMSAttachmentEncryption             = $False;
+            RouteMessageOutboundRequireTls            = $False;
+            RuleErrorAction                           = "Ignore";
+            RuleSubType                               = "None";
+            SenderAddressLocation                     = "Header";
+            SentToScope                               = "NotInOrganization";
+            StopRuleProcessing                        = $False;
+            TenantId                                  = $OrganizationName;
+        }
+        EXOTransportRule "EXOTransportRule-Remove Encryption for On-Prem recipients"
+        {
+            ApplicationId                             = $ConfigurationData.NonNodeData.ApplicationId;
+            ApplyOME                                  = $False;
+            AttachmentHasExecutableContent            = $False;
+            AttachmentIsPasswordProtected             = $False;
+            AttachmentIsUnsupported                   = $False;
+            AttachmentProcessingLimitExceeded         = $False;
+            CertificateThumbprint                     = $ConfigurationData.NonNodeData.CertificateThumbprint;
+            DeleteMessage                             = $False;
+            Enabled                                   = $False;
+            Ensure                                    = "Present";
+            ExceptIfAttachmentHasExecutableContent    = $False;
+            ExceptIfAttachmentIsPasswordProtected     = $False;
+            ExceptIfAttachmentIsUnsupported           = $False;
+            ExceptIfAttachmentProcessingLimitExceeded = $False;
+            ExceptIfHasNoClassification               = $False;
+            FromScope                                 = "InOrganization";
+            HasNoClassification                       = $False;
+            Mode                                      = "Enforce";
+            ModerateMessageByManager                  = $False;
+            Name                                      = "Remove Encryption for On-Prem recipients";
+            Priority                                  = 3;
+            Quarantine                                = $False;
+            RecipientAddressType                      = "Resolved";
+            RemoveOME                                 = $False;
+            RemoveOMEv2                               = $True;
+            RemoveRMSAttachmentEncryption             = $False;
+            RouteMessageOutboundRequireTls            = $False;
+            RuleErrorAction                           = "Ignore";
+            RuleSubType                               = "None";
+            SenderAddressLocation                     = "Header";
+            SentToMemberOf                            = @("dd-notEXOUsers@babcockinternationalpre1.onmicrosoft.com");
+            StopRuleProcessing                        = $False;
+            TenantId                                  = $OrganizationName;
+        }
+        EXOTransportRule "EXOTransportRule-Disclaimer test"
+        {
+            ApplicationId                             = $ConfigurationData.NonNodeData.ApplicationId;
+            ApplyHtmlDisclaimerFallbackAction         = "Wrap";
+            ApplyHtmlDisclaimerLocation               = "Append";
+            ApplyHtmlDisclaimerText                   = "<br><hr><font face ='Ariel' Color='Black' size='1'><br>disclaimer text about stuff - EXO</font>";
+            ApplyOME                                  = $False;
+            AttachmentHasExecutableContent            = $False;
+            AttachmentIsPasswordProtected             = $False;
+            AttachmentIsUnsupported                   = $False;
+            AttachmentProcessingLimitExceeded         = $False;
+            CertificateThumbprint                     = $ConfigurationData.NonNodeData.CertificateThumbprint;
+            DeleteMessage                             = $False;
+            Enabled                                   = $True;
+            Ensure                                    = "Present";
+            ExceptIfAttachmentHasExecutableContent    = $False;
+            ExceptIfAttachmentIsPasswordProtected     = $False;
+            ExceptIfAttachmentIsUnsupported           = $False;
+            ExceptIfAttachmentProcessingLimitExceeded = $False;
+            ExceptIfHasNoClassification               = $False;
+            ExceptIfSentToMemberOf                    = @("dd-notEXOUsers@babcockinternationalpre1.onmicrosoft.com");
+            FromMemberOf                              = @("#CognosXXXX-allusers@ns1.babgroup.co.uk");
+            HasNoClassification                       = $False;
+            Mode                                      = "Enforce";
+            ModerateMessageByManager                  = $False;
+            Name                                      = "Disclaimer test";
+            Priority                                  = 4;
+            Quarantine                                = $False;
+            RecipientAddressType                      = "Resolved";
+            RemoveOME                                 = $False;
+            RemoveOMEv2                               = $False;
+            RemoveRMSAttachmentEncryption             = $False;
+            RouteMessageOutboundRequireTls            = $False;
+            RuleErrorAction                           = "Ignore";
+            RuleSubType                               = "None";
+            SenderAddressLocation                     = "Header";
+            StopRuleProcessing                        = $False;
+            TenantId                                  = $OrganizationName;
+        }
+        EXOTransportRule "EXOTransportRule-test encrypt inbound"
+        {
+            ApplicationId                             = $ConfigurationData.NonNodeData.ApplicationId;
+            ApplyOME                                  = $False;
+            ApplyRightsProtectionTemplate             = "UK OFFICIAL - SENSITIVE - UK OFFICIAL - SENSITIVE Encrypted";
+            AttachmentHasExecutableContent            = $False;
+            AttachmentIsPasswordProtected             = $False;
+            AttachmentIsUnsupported                   = $False;
+            AttachmentProcessingLimitExceeded         = $False;
+            CertificateThumbprint                     = $ConfigurationData.NonNodeData.CertificateThumbprint;
+            DeleteMessage                             = $False;
+            Enabled                                   = $True;
+            Ensure                                    = "Present";
+            ExceptIfAttachmentHasExecutableContent    = $False;
+            ExceptIfAttachmentIsPasswordProtected     = $False;
+            ExceptIfAttachmentIsUnsupported           = $False;
+            ExceptIfAttachmentProcessingLimitExceeded = $False;
+            ExceptIfHasNoClassification               = $False;
+            From                                      = @("richard.jones4@babcockinternational.com");
+            HasNoClassification                       = $False;
+            Mode                                      = "Enforce";
+            ModerateMessageByManager                  = $False;
+            Name                                      = "test encrypt inbound";
+            Priority                                  = 5;
+            Quarantine                                = $False;
+            RecipientAddressType                      = "Resolved";
+            RemoveOME                                 = $False;
+            RemoveOMEv2                               = $False;
+            RemoveRMSAttachmentEncryption             = $False;
+            RouteMessageOutboundRequireTls            = $False;
+            RuleErrorAction                           = "Ignore";
+            RuleSubType                               = "None";
+            SenderAddressLocation                     = "Header";
+            StopRuleProcessing                        = $False;
+            TenantId                                  = $OrganizationName;
+        }
+        EXOTransportRule "EXOTransportRule-test"
+        {
+            ApplicationId                             = $ConfigurationData.NonNodeData.ApplicationId;
+            ApplyOME                                  = $False;
+            AttachmentHasExecutableContent            = $False;
+            AttachmentIsPasswordProtected             = $False;
+            AttachmentIsUnsupported                   = $False;
+            AttachmentProcessingLimitExceeded         = $False;
+            CertificateThumbprint                     = $ConfigurationData.NonNodeData.CertificateThumbprint;
+            DeleteMessage                             = $False;
+            Enabled                                   = $True;
+            Ensure                                    = "Present";
+            ExceptIfAttachmentHasExecutableContent    = $False;
+            ExceptIfAttachmentIsPasswordProtected     = $False;
+            ExceptIfAttachmentIsUnsupported           = $False;
+            ExceptIfAttachmentProcessingLimitExceeded = $False;
+            ExceptIfHasNoClassification               = $False;
+            ExceptIfSentTo                            = @("adrian@r.mil.uk");
+            HasNoClassification                       = $False;
+            Mode                                      = "Enforce";
+            ModerateMessageByManager                  = $False;
+            Name                                      = "test";
+            Priority                                  = 6;
+            Quarantine                                = $False;
+            RecipientAddressContainsWords             = @("*.r.mil.uk");
+            RecipientAddressType                      = "Resolved";
+            RemoveOME                                 = $False;
+            RemoveOMEv2                               = $False;
+            RemoveRMSAttachmentEncryption             = $False;
+            RouteMessageOutboundConnector             = "r.mi.uk mail direct to Blue01";
+            RouteMessageOutboundRequireTls            = $False;
+            RuleErrorAction                           = "Ignore";
+            RuleSubType                               = "None";
+            SenderAddressLocation                     = "Header";
+            SentToScope                               = "NotInOrganization";
+            StopRuleProcessing                        = $False;
+            TenantId                                  = $OrganizationName;
+        }
+    }
+}
+
+new -ConfigurationData .\ConfigurationData.psd1
